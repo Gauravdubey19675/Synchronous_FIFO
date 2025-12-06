@@ -1,0 +1,67 @@
+`timescale 1ns/1ps
+module testbench;
+reg rst;
+reg clk;
+reg [3:0] wr_data;
+reg wr_enable;
+reg rd_enable;
+wire [3:0]rd_out;
+wire FIFO_FULL;
+wire FIFO_NULL;
+
+  FIFO DUT(rst, clk , wr_data ,  wr_enable , rd_enable , rd_out , FIFO_FULL , FIFO_NULL);
+  always 
+    begin
+      clk=~clk;#5;
+    end
+  
+  initial
+    begin
+      $dumpfile("testbench.vcd");
+      $dumpvars(0,testbench);
+      
+      $monitor($time ,"rst=%b , clk = %b , wr_data=%b , wr_enable = %b , rd_enable = %b , rd_out =%b , FIFO_FULL=%b , FIFO_NULL=%b ",rst , clk , wr_data , wr_enable , rd_enable , rd_out , FIFO_NULL , FIFO_FULL );
+      clk = 1'b0;
+      rst = 1'b1;#10;
+      rst = 1'b0;
+      wr_data =4'b0101;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0011;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0101;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b1000;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0000;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0011;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0101;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b1000;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0000;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0011;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0101;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b1000;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0000;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0011;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b0101;wr_enable = 1'b1 ; rd_enable = 1'b0;#10;
+      wr_data =4'b1000;wr_enable = 1'b1 ; rd_enable = 1'b0;#10; 
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      wr_data =4'b0001;wr_enable = 1'b1 ; rd_enable = 1'b0;#10; 
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      rd_enable=1'b1 ; wr_enable=1'b0;#10;
+      wr_data =4'b0001;wr_enable = 1'b1 ; rd_enable = 1'b0;#10; 
+      $finish;
+    end
+endmodule
