@@ -1,0 +1,50 @@
+  module FIFO(rst, clk , wr_data ,  wr_enable , rd_enable , rd_out, FIFO_FULL, FIFO_NULL);
+  input rst;
+  input clk;
+  input [3:0]wr_data;
+  input wr_enable;
+  input rd_enable;
+  output FIFO_FULL;
+  output FIFO_NULL;
+  output reg [3:0]rd_out;
+  
+  reg [4:0]wr_pointer;
+  reg [4:0]rd_pointer;
+  
+  reg [3:0] mem [0:15] ;
+  
+ 
+  
+  parameter depth=4'b1111;
+  parameter start =4'b0000;
+  parameter ON= 1'b1;
+  parameter OFF= 1'b0;
+
+  
+  always @(negedge clk or posedge rst)
+    begin
+      if (rst)
+        begin
+          wr_pointer <= 5'b00000;   
+          rd_pointer<= 5'b00000;   
+        end
+      else 
+        begin
+        if (wr_enable && !FIFO_FULL)
+        begin
+        mem[wr_pointer[3:0]]<=wr_data;
+        wr_pointer<=wr_pointer+1;
+        end
+        
+        else if(rd_enable && !FIFO_NULL)
+        begin
+        rd_out<=mem[rd_pointer[3:0]];
+        rd_pointer<=rd_pointer+1;
+        end
+        end
+        end
+        
+        assign FIFO_FULL = (wr_pointer[4] != rd_pointer[4]) & (wr_pointer[3:0] == rd_pointer[3:0]);
+        assign FIFO_NULL = (wr_pointer[4] == rd_pointer[4]) & (wr_pointer[3:0] == rd_pointer[3:0]);
+        
+        endmodule
